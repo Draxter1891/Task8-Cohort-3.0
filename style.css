@@ -1,3 +1,43 @@
+[data-theme=light] {
+  --primary-bg: #f5f5f5;
+  --nav-bg: rgb(152, 115, 187);
+  --form-bg: #ffffff6c;
+  --text-color: #18181b;
+  --text-muted: #71717a;
+  --status-text: rgb(97, 97, 97);
+  --input-bg: #e4e4e7;
+  --card-pending-bg: rgb(148, 210, 229);
+  --card-complete-bg: rgb(221, 221, 221);
+  --card-border: #e4e4e7;
+  --category-bg: #f4f4f5;
+  --category-text: #52525b;
+  --close-btn-color: rgb(255, 255, 255);
+  --edit-btn-bg: #dbeafe;
+  --complete-btn-bg: #dcfce7;
+  --delete-btn-bg: #ff7a7a;
+  --overlay-bg: rgba(0, 0, 0, 0.212);
+}
+
+[data-theme=dark] {
+  --primary-bg: #1e1e2e;
+  --nav-bg: rgb(90, 60, 130);
+  --form-bg: rgba(40, 40, 60, 0.75);
+  --text-color: #f0f0f0;
+  --text-muted: #a1a1aa;
+  --status-text: rgb(180, 180, 180);
+  --input-bg: #2a2a3d;
+  --card-pending-bg: rgb(50, 100, 120);
+  --card-complete-bg: rgb(50, 50, 60);
+  --card-border: #3f3f52;
+  --category-bg: #2a2a3d;
+  --category-text: #c4c4d4;
+  --close-btn-color: #f0f0f0;
+  --edit-btn-bg: #1e3a5f;
+  --complete-btn-bg: #14532d;
+  --delete-btn-bg: #b91c1c;
+  --overlay-bg: rgba(0, 0, 0, 0.5);
+}
+
 * {
   margin: 0;
   padding: 0;
@@ -9,40 +49,55 @@ html,
 body {
   height: 100%;
   width: 100%;
+  background-color: var(--primary-bg);
 }
 
 main {
   height: 100%;
   width: 100%;
   position: relative;
+  background-color: var(--primary-bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 main nav {
   width: 100%;
   padding: 1rem;
-  background-color: rgb(152, 115, 187);
+  background-color: var(--nav-bg);
   display: flex;
   align-items: center;
   justify-content: space-between;
+  margin-bottom: 1rem;
+  transition: background-color 0.3s ease;
 }
-main nav h1 {
+main nav .theme-btn {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  background-color: #ffffff;
+  cursor: pointer;
+}
+main nav .theme-btn i {
   font-size: 1.5rem;
-  font-weight: 500;
-  color: white;
+  color: rgb(105, 104, 104);
 }
 main nav li {
   list-style: none;
   font-size: 0.8rem;
   background-color: white;
-  padding: 0.4rem 0.9rem;
+  padding: 0.8rem 1rem;
   cursor: pointer;
-  border-radius: 1rem;
+  border-radius: 2rem;
 }
 main .form-overlay {
   width: 100%;
   position: absolute;
   top: 0;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.212);
+  background-color: var(--overlay-bg);
   backdrop-filter: blur(2px);
   display: none;
   justify-content: center;
@@ -50,32 +105,35 @@ main .form-overlay {
   flex-direction: column;
   z-index: 999;
 }
-main .form-overlay #close-form {
-  font-size: 2rem;
-  color: rgb(0, 0, 0);
-  position: absolute;
-  right: 20rem;
-  top: 5rem;
-  cursor: pointer;
-  transition: all ease 0.3s;
-}
-main .form-overlay #close-form:hover {
-  transform: scale(1.2);
-}
-main .form-overlay #close-form:active {
-  transform: scale(0.8);
-}
 main .form-overlay .task-form {
   backdrop-filter: blur(3px);
-  width: 40%;
+  width: 90%;
   padding: 2rem;
-  background: rgba(255, 255, 255, 0.4235294118);
+  background: var(--form-bg);
   border-radius: 1.5rem;
   border: 1px solid rgba(255, 253, 253, 0.705);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04), 0 12px 32px rgba(0, 0, 0, 0.08);
   display: flex;
   flex-direction: column;
   gap: 1.5rem;
+  position: relative;
+}
+main .form-overlay .task-form #close-form {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--close-btn-color);
+  position: absolute;
+  right: 1rem;
+  top: 0;
+  z-index: 8;
+  cursor: pointer;
+  transition: all ease 0.3s;
+}
+main .form-overlay .task-form #close-form:hover {
+  transform: scale(1.2);
+}
+main .form-overlay .task-form #close-form:active {
+  transform: scale(0.8);
 }
 main .form-overlay .task-form .input-group {
   display: flex;
@@ -85,30 +143,29 @@ main .form-overlay .task-form .input-group {
 main .form-overlay .task-form .input-group label {
   font-size: 0.9rem;
   font-weight: 500;
-  color: #19191b;
+  color: var(--text-color);
 }
 main .form-overlay .task-form .input-group input,
 main .form-overlay .task-form .input-group select {
   width: 100%;
   padding: 1rem;
   border-radius: 0.8rem;
-  border: 1px solid #e4e4e7;
-  background: #fafafa;
+  border: none;
+  background: var(--input-bg);
+  color: var(--text-color);
   font-size: 1rem;
   outline: none;
   transition: all 0.3s ease;
 }
 main .form-overlay .task-form .input-group input:focus,
 main .form-overlay .task-form .input-group select:focus {
-  background: white;
-  border-color: #18181b;
   box-shadow: 0 0 0 4px rgba(24, 24, 27, 0.08);
 }
 main .form-overlay .task-form .add-task-btn {
   padding: 1rem;
   border: none;
   border-radius: 0.8rem;
-  background: #18181b;
+  background: var(--nav-bg);
   color: white;
   font-size: 1rem;
   font-weight: 600;
@@ -126,11 +183,11 @@ main .task-manager .task-manager-header {
 main .task-manager .task-manager-header h1 {
   font-size: clamp(2rem, 3vw, 3rem);
   font-weight: 600;
-  color: #18181b;
+  color: var(--text-color);
   margin-bottom: 0.5rem;
 }
 main .task-manager .task-manager-header p {
-  color: #71717a;
+  color: var(--text-muted);
   font-size: 1rem;
 }
 main .task-manager .task-container {
@@ -142,7 +199,7 @@ main .task-manager .task-container {
   position: relative;
 }
 main .task-manager .task-container .status-heading {
-  color: rgb(97, 97, 97);
+  color: var(--status-text);
   font-size: 1.4rem;
   font-weight: 500;
 }
@@ -152,36 +209,41 @@ main .task-manager .task-container .pending-tasks {
   gap: 0.4rem;
 }
 main .task-manager .task-container .pending-tasks .task-card {
-  width: -moz-fit-content;
-  width: fit-content;
-  background: rgb(148, 210, 229);
-  border: 1px solid #e4e4e7;
+  width: 100%;
+  background: var(--card-pending-bg);
+  border: 1px solid var(--card-border);
   border-radius: 1rem;
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 2rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  position: relative;
+  transition: background-color 0.3s ease;
 }
 main .task-manager .task-container .pending-tasks .task-card h3 {
   width: -moz-fit-content;
   width: fit-content;
   font-size: 1.1rem;
   font-weight: 600;
+  text-transform: capitalize;
+  color: black;
 }
 main .task-manager .task-container .pending-tasks .task-card .category {
   width: -moz-fit-content;
   width: fit-content;
   padding: 0.4rem 0.8rem;
   border-radius: 999px;
-  background: #f4f4f5;
+  background: var(--category-bg);
   font-size: 0.8rem;
-  color: #52525b;
+  color: var(--category-text);
+  position: absolute;
+  right: 1rem;
 }
 main .task-manager .task-container .pending-tasks .task-card .actions {
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 100%;
   display: flex;
+  justify-content: space-around;
   gap: 0.75rem;
 }
 main .task-manager .task-container .pending-tasks .task-card .actions button {
@@ -190,48 +252,56 @@ main .task-manager .task-container .pending-tasks .task-card .actions button {
   border-radius: 0.7rem;
   cursor: pointer;
   transition: 0.3s ease;
+  font-weight: 500;
 }
 main .task-manager .task-container .pending-tasks .task-card .actions .edit-btn {
-  background: #dbeafe;
+  background: var(--edit-btn-bg);
+  color: var(--text-color);
 }
 main .task-manager .task-container .pending-tasks .task-card .actions .complete-btn {
-  background: #dcfce7;
+  background: var(--complete-btn-bg);
+  color: var(--text-color);
 }
 main .task-manager .task-container .pending-tasks .task-card .actions .delete-btn {
-  background: #fee2e2;
+  background: var(--delete-btn-bg);
+  color: var(--text-color);
 }
 main .task-manager .task-container .pending-tasks .task-card .actions button:hover {
   transform: translateY(-2px);
 }
 main .task-manager .task-container .completed-task {
   display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
 }
 main .task-manager .task-container .completed-task .task-card {
   width: -moz-fit-content;
   width: fit-content;
-  background: rgb(146, 146, 146);
-  border: 1px solid #e4e4e7;
+  background: var(--card-complete-bg);
+  border: 1px solid var(--card-border);
   border-radius: 1rem;
   padding: 1.2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+  transition: background-color 0.3s ease;
 }
 main .task-manager .task-container .completed-task .task-card h3 {
   width: -moz-fit-content;
   width: fit-content;
   font-size: 1.1rem;
   font-weight: 600;
-  color: rgb(255, 255, 255);
+  color: var(--text-muted);
+  text-decoration: line-through;
 }
 main .task-manager .task-container .completed-task .task-card .category {
   width: -moz-fit-content;
   width: fit-content;
   padding: 0.4rem 0.8rem;
   border-radius: 3rem;
-  border: 1px solid rgb(51, 51, 51);
-  background: #313131;
+  border: none;
+  background: var(--text-muted);
   font-size: 0.8rem;
   color: #f7f7f7;
 }
@@ -247,9 +317,25 @@ main .task-manager .task-container .completed-task .task-card .actions button {
   border-radius: 2rem;
   cursor: pointer;
   transition: 0.3s ease;
-  background: #f10000;
   color: whitesmoke;
+  font-weight: 500;
+}
+main .task-manager .task-container .completed-task .task-card .actions button:nth-child(1) {
+  background: #f10000;
+}
+main .task-manager .task-container .completed-task .task-card .actions button:nth-child(2) {
+  background: #158cfa;
 }
 main .task-manager .task-container .completed-task .task-card .actions button:hover {
   transform: translateY(-2px);
+}
+
+@media (min-width: 1024px) {
+  body main .form-overlay .task-form {
+    width: 40%;
+  }
+  body main .task-manager .task-container .pending-tasks .task-card {
+    width: -moz-fit-content;
+    width: fit-content;
+  }
 }/*# sourceMappingURL=style.css.map */

@@ -1,10 +1,13 @@
+const body = document.body;
 const addTaskBtn = document.querySelector("#add-task");
 const formOverlay = document.querySelector(".form-overlay");
 const closeForm = document.querySelector("#close-form");
 const form = document.querySelector("form");
-const taskContainer = document.querySelector(".task-container")
+const taskContainer = document.querySelector(".task-container");
 const pendingTasks = document.querySelector(".pending-tasks");
 const completedTasks = document.querySelector(".completed-task");
+const themeBtn = document.querySelector(".theme-btn");
+const themeIcon = document.querySelector("#theme-icon");
 
 let editIndex = null;
 
@@ -17,15 +20,22 @@ let TASKS = [
   },
 ];
 
+themeBtn.addEventListener("click", () => {
+  if (body.getAttribute("data-theme") === "dark") {
+    body.setAttribute("data-theme", "light");
+    themeIcon.classList.replace("ri-sun-line", "ri-moon-clear-fill");
+  } else if (body.getAttribute("data-theme") === "light") {
+    body.setAttribute("data-theme", "dark");
+    themeIcon.classList.replace("ri-moon-clear-fill", "ri-sun-line");
+  }
+});
+
 let randomColor = () => {
   const hue = Math.floor(Math.random() * 360);
-
   return `hsl(${hue}, 70%, 85%)`;
 };
 
 let ui = () => {
-
-
   pendingTasks.innerHTML = "";
   completedTasks.innerHTML = "";
 
@@ -56,6 +66,7 @@ let ui = () => {
               <div class="actions">
                
                 <button class="delete-btn" onClick="deleteTask(${index})">Delete</button>
+                <button class="undo-btn" onClick="undoClicked(${index})">Undo</button>
               </div>
             </div>
             `;
@@ -76,9 +87,9 @@ form.addEventListener("submit", (event) => {
   event.preventDefault();
 
   if (form[0].value.trim() === "" || form.category.value === "") {
-    alert("Please fill all the fields")
+    alert("Please fill all the fields");
     formOverlay.style.display = "none";
-    return; 
+    return;
   }
 
   let task = form[0].value;
@@ -122,5 +133,10 @@ let deleteTask = (index) => {
 
 let markedCompleted = (index) => {
   TASKS[index].status = "completed";
+  ui();
+};
+
+let undoClicked = (index) => {
+  TASKS[index].status = "pending";
   ui();
 };
