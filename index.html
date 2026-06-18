@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task Manager</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <main>
+      <nav>
+        <h1>Task Manager</h1>
+        <ul class="center-nav">
+          <li id="add-task">Add Task</li>
+        </ul>
+      </nav>
+      <div class="form-overlay">
+        <span id="close-form">x</span>
+        <form class="task-form">
+          <div class="input-group">
+            <label for="task-title">Task Title</label>
+            <input
+              type="text"
+              id="task-title"
+              placeholder="Enter task title..."
+            />
+          </div>
+
+          <div class="input-group">
+            <label for="category">Category</label>
+
+            <select id="category">
+              <option value="">Select Category</option>
+              <option value="work">Work</option>
+              <option value="study">Study</option>
+              <option value="personal">Personal</option>
+            </select>
+          </div>
+
+          <button type="submit" class="add-task-btn">Add Task</button>
+        </form>
+        </div>
+      <section class="task-manager">
+        <div class="task-manager-header">
+          <h1>Task Manager</h1>
+          <p>Organize, track and manage your tasks efficiently.</p>
+        </div>
+        
+        <div class="task-container">
+          <h3 class="status-heading">Pending Tasks</h3>
+          <div class="pending-tasks">
+            <!-- <div class="task-card">
+              <h3>Learn Event Delegation</h3>
+
+              <span class="category"> Study </span>
+
+              <div class="actions">
+                <button class="edit-btn">Edit</button>
+
+                <button class="complete-btn">Complete</button>
+
+                <button class="delete-btn">Delete</button>
+              </div>
+            </div> -->
+          </div>
+          <h3 class="status-heading">Completed Tasks</h3>
+
+          <div class="completed-task">
+            <div class="task-card">
+              <h3>This Task is completed</h3>
+
+              <span class="category"> Study </span>
+
+              <div class="actions">
+               
+                <button class="delete-btn">Delete</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <script src="script.js"></script>
+  </body>
+</html>
