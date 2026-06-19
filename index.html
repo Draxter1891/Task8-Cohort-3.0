@@ -6,23 +6,28 @@
     <title>Task Manager</title>
     <link rel="stylesheet" href="style.css" />
     <link
-  href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
-  rel="stylesheet"
-/>
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="shortcut icon"
+      href="https://ik.imagekit.io/udeluwj7a/Favicon-R/favicon.ico"
+      type="image/x-icon"
+    />
   </head>
   <body data-theme="dark">
     <main>
       <nav>
         <div class="theme-btn">
-            <i class="ri-sun-line" id="theme-icon"></i>
+          <i class="ri-sun-line" id="theme-icon"></i>
         </div>
         <ul class="center-nav">
           <li id="add-task">Add Task</li>
         </ul>
       </nav>
       <div class="form-overlay">
-          <form class="task-form">
-            <span id="close-form">x</span>
+        <form class="task-form">
+          <span id="close-form">x</span>
           <div class="input-group">
             <label for="task-title">Task Title</label>
             <input
@@ -45,17 +50,17 @@
 
           <button type="submit" class="add-task-btn">Add Task</button>
         </form>
-        </div>
+      </div>
       <section class="task-manager">
         <div class="task-manager-header">
           <h1>Task Manager</h1>
           <p>Organize, track and manage your tasks efficiently.</p>
         </div>
-        
+
         <div class="task-container">
           <h3 class="status-heading">Pending</h3>
           <div class="pending-tasks">
-            <!-- <div class="task-card">
+            <div class="task-card">
               <h3>Learn Event Delegation</h3>
 
               <span class="category"> Study </span>
@@ -67,9 +72,9 @@
 
                 <button class="delete-btn">Delete</button>
               </div>
-            </div> -->
+            </div> 
           </div>
-          <h3 class="status-heading">Completed </h3>
+          <h3 class="status-heading">Completed</h3>
 
           <div class="completed-task">
             <div class="task-card">
@@ -78,9 +83,39 @@
               <span class="category"> Study </span>
 
               <div class="actions">
-               
                 <button class="delete-btn">Delete</button>
                 <button class="undo-btn">Undo</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="dom-demo">
+        <div class="event-delegation">
+          <div class="ed-header">
+            <h2>Event Delegation Demonstration</h2>
+            <p>(click the button to see how the event propogates)</p>
+            <div class="modes">
+              <button data-mode="bubbling" class="mode">Enable Bubbling</button>
+              <button data-mode="capturing" class="mode">Enable Capturing</button>
+            </div>
+          </div>
+          <div class="ed-main">
+            <div class="grandparent">
+              <p>Grandparent</p>
+              <div class="parent">
+                <p>Parent</p>
+                <button class="child">Child</button>
+              </div>
+            </div>
+            <div class="console">
+              <div class="output">Output</div>
+
+              <div class="input-line">
+                <span class="prompt">&gt;</span>
+                <!-- <span class="command">console.log()</span> -->
+                <span class="cursor"></span>
               </div>
             </div>
           </div>

@@ -9,6 +9,15 @@ const completedTasks = document.querySelector(".completed-task");
 const themeBtn = document.querySelector(".theme-btn");
 const themeIcon = document.querySelector("#theme-icon");
 
+const grandparent = document.querySelector(".grandparent");
+const parent = document.querySelector(".parent");
+const child = document.querySelector(".child");
+const modeSelection = document.querySelector(".modes");
+const modeBtns = document.querySelectorAll(".mode");
+const consoleBox = document.querySelector(".console");
+
+let btn;
+
 let editIndex = null;
 
 let TASKS = [
@@ -21,14 +30,17 @@ let TASKS = [
 ];
 
 themeBtn.addEventListener("click", () => {
-  if (body.getAttribute("data-theme") === "dark") {
+  if (body.getAttribute("data-theme") !== "light") {
     body.setAttribute("data-theme", "light");
+
     themeIcon.classList.replace("ri-sun-line", "ri-moon-clear-fill");
-  } else if (body.getAttribute("data-theme") === "light") {
+  } else{
     body.setAttribute("data-theme", "dark");
     themeIcon.classList.replace("ri-moon-clear-fill", "ri-sun-line");
   }
 });
+
+
 
 let randomColor = () => {
   const hue = Math.floor(Math.random() * 360);
@@ -48,7 +60,7 @@ let ui = () => {
               <span class="category"> ${elem.category} </span>
 
               <div class="actions">
-                <button class="edit-btn" onClick="editTask('${elem.task}')">Edit</button>
+                <button class="edit-btn" onClick="editTask('${index}')">Edit</button>
 
                 <button class="complete-btn" onClick="markedCompleted(${index})">Complete</button>
 
@@ -116,14 +128,14 @@ form.addEventListener("submit", (event) => {
   form.reset();
 });
 
-let editTask = (tName) => {
+let editTask = (index) => {
   formOverlay.style.display = "flex";
   form[2].textContent = "Edit";
-  let taskContent = TASKS.find((elem) => elem.task === tName);
-  editIndex = TASKS.findIndex((elem) => elem.task === tName);
-
-  form[0].value = taskContent.task;
-  form.category.value = taskContent.category;
+  
+  editIndex = index;
+  
+  form[0].value = TASKS[index].task;
+  form.category.value = TASKS[index].category;
 };
 
 let deleteTask = (index) => {
@@ -140,3 +152,102 @@ let undoClicked = (index) => {
   TASKS[index].status = "pending";
   ui();
 };
+
+
+modeSelection.addEventListener("click", (e) => {
+  if (!e.target.classList.contains("mode")) return;
+  modeBtns.forEach((elem) => (elem.style.filter = "initial"));
+
+  delay = 0;
+
+  btn = e.target.dataset.mode;
+  e.target.style.filter = "brightness(1.5)";
+
+  consoleBox.innerHTML = `
+        <div class="output">Output</div>
+              <div class="input-line">
+                <span class="prompt">&gt</span>
+                <span class="cursor"></span>
+              </div>
+  `;
+
+  console.clear();
+});
+
+let delay = 0;
+let showOutputOnConsole = (relative, propagation) => {
+  setTimeout(() => {
+    consoleBox.innerHTML += ` 
+              <div class="input-line">
+                <span class="prompt">&gt</span>
+                <span class="command">${propagation} mode - ${relative}</span>
+              </div>
+  `;
+    console.log(`${propagation} mode - ${relative} clicked`);
+  }, delay);
+
+  delay += 300;
+};
+
+//Event Listeners - Grandparent <--> parent <--> child
+grandparent.addEventListener("click", () => {
+  if (btn === "bubbling") {
+    showOutputOnConsole("Grandparent", "Bubbling");
+  }
+});
+grandparent.addEventListener(
+  "click",
+  () => {
+    if (btn === "capturing") {
+      showOutputOnConsole("Grandparent", "Capturing");
+    }
+  },
+  true,
+);
+
+parent.addEventListener("click", () => {
+  if (btn === "bubbling") {
+    showOutputOnConsole("Parent", "Bubbling");
+  }
+});
+parent.addEventListener(
+  "click",
+  () => {
+    if (btn === "capturing") {
+      showOutputOnConsole("Parent", "Capturing");
+    }
+  },
+  true,
+);
+
+child.addEventListener("click", () => {
+  if (btn === "bubbling") {
+    delay = 0;
+    consoleBox.innerHTML = `
+        <div class="output">Output</div>
+              <div class="input-line">
+                <span class="prompt">&gt</span>
+                <span class="cursor"></span>
+              </div>
+  `;
+    showOutputOnConsole("Child", "Bubbling");
+  }
+});
+child.addEventListener(
+  "click",
+  () => {
+    delay = 0;
+
+    consoleBox.innerHTML = `
+        <div class="output">Output</div>
+              <div class="input-line">
+                <span class="prompt">&gt</span>
+                <span class="cursor"></span>
+              </div>
+  `;
+    if (btn === "capturing") {
+      showOutputOnConsole("Child", "Capturing");
+    }
+  },
+  true,
+);
