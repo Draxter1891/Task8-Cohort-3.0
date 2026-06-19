@@ -18,7 +18,7 @@
   --overlay-bg: rgba(0, 0, 0, 0.212);
 
   --console-border: #e1e4e8;
-  --console-bg: #bdd4c8;
+  --console-bg: #bdd4c8;  
   --text-main: #24292e;
   --text-dim: #586069;
   --accent: #2188ff;
@@ -28,7 +28,7 @@
 [data-theme="dark"] {
   --primary-bg: #1e1e2e;
   --nav-bg: rgb(90, 60, 130);
-  --form-bg: rgba(40, 40, 60, 0.75);
+  --form-bg: #28283cbf;
   --text-color: #f0f0f0;
   --text-muted: #a1a1aa;
   --status-text: rgb(180, 180, 180);
@@ -398,7 +398,7 @@ main {
       display: flex;
       flex-direction: column;
       gap: 1rem;
-
+      padding: 1rem 0;
       .ed-header {
         width: 100%;
         color: var(--text-color);
@@ -553,6 +553,46 @@ main {
         }
       }
     }
+
+    .difference{
+      width: 100%;
+      border: 1px solid var(--text-muted);
+      border-radius: 1rem;
+      padding: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      h1{
+        font-size: clamp(1.2rem,2rem,2.5vw);
+        color: var(--text-color);
+        font-weight: 500;
+      }
+      input{
+        width: 30vmax;
+        padding: .5rem;
+        border: none;
+        border-radius: .4rem;
+        background-color: white;
+        outline: var(--text-muted);
+      }
+      .diff-output{
+        width: 30vmax;
+        border: 1px solid var(--text-muted);
+        padding: 2rem 0.5rem;
+        border-radius: .5rem;
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        p{
+          color: var(--text-color);
+          span{
+            font-weight: 600;
+            text-decoration: underline;
+          }
+        }
+
+      }
+    }
   }
 }
 
@@ -568,7 +608,7 @@ main {
 
     .dom-demo {
       .event-delegation {
-        height: 70vh;
+        height: 40vmax;
         .ed-header {
           .modes {
             margin-top: 1rem;
