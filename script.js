@@ -1,3 +1,4 @@
+//Selectors
 const body = document.body;
 const addTaskBtn = document.querySelector("#add-task");
 const formOverlay = document.querySelector(".form-overlay");
@@ -8,7 +9,6 @@ const pendingTasks = document.querySelector(".pending-tasks");
 const completedTasks = document.querySelector(".completed-task");
 const themeBtn = document.querySelector(".theme-btn");
 const themeIcon = document.querySelector("#theme-icon");
-
 const grandparent = document.querySelector(".grandparent");
 const parent = document.querySelector(".parent");
 const child = document.querySelector(".child");
@@ -16,10 +16,9 @@ const modeSelection = document.querySelector(".modes");
 const modeBtns = document.querySelectorAll(".mode");
 const consoleBox = document.querySelector(".console");
 
+//Variables
 let btn;
-
 let editIndex = null;
-
 let TASKS = [
   {
     task: "test task",
@@ -28,19 +27,20 @@ let TASKS = [
     bgcolor: "hsl(314, 60%, 82%)",
   },
 ];
+let timers = [];
+let delay = 0;
+let isRunning = false;
 
 themeBtn.addEventListener("click", () => {
   if (body.getAttribute("data-theme") !== "light") {
     body.setAttribute("data-theme", "light");
 
     themeIcon.classList.replace("ri-sun-line", "ri-moon-clear-fill");
-  } else{
+  } else {
     body.setAttribute("data-theme", "dark");
     themeIcon.classList.replace("ri-moon-clear-fill", "ri-sun-line");
   }
 });
-
-
 
 let randomColor = () => {
   const hue = Math.floor(Math.random() * 360);
@@ -131,9 +131,9 @@ form.addEventListener("submit", (event) => {
 let editTask = (index) => {
   formOverlay.style.display = "flex";
   form[2].textContent = "Edit";
-  
+
   editIndex = index;
-  
+
   form[0].value = TASKS[index].task;
   form.category.value = TASKS[index].category;
 };
@@ -153,6 +153,21 @@ let undoClicked = (index) => {
   ui();
 };
 
+consoleBox.addEventListener("click", (e) => {
+  if ((e.target.id = "clear-console")) {
+    consoleBox.innerHTML = `
+      <div class="output">
+        Output <button id="clear-console">Clear console</button>
+      </div>
+      <div class="input-line">
+        <span class="prompt">&gt</span>
+        <span class="cursor"></span>
+      </div>
+    `;
+
+    console.clear();
+  }
+});
 
 modeSelection.addEventListener("click", (e) => {
   if (!e.target.classList.contains("mode")) return;
@@ -164,7 +179,7 @@ modeSelection.addEventListener("click", (e) => {
   e.target.style.filter = "brightness(1.5)";
 
   consoleBox.innerHTML = `
-        <div class="output">Output</div>
+        <div class="output">Output <button id="clear-console">Clear console</button></div>
               <div class="input-line">
                 <span class="prompt">&gt</span>
                 <span class="cursor"></span>
@@ -174,9 +189,8 @@ modeSelection.addEventListener("click", (e) => {
   console.clear();
 });
 
-let delay = 0;
 let showOutputOnConsole = (relative, propagation) => {
-  setTimeout(() => {
+  let timer = setTimeout(() => {
     consoleBox.innerHTML += ` 
               <div class="input-line">
                 <span class="prompt">&gt</span>
@@ -187,67 +201,49 @@ let showOutputOnConsole = (relative, propagation) => {
   }, delay);
 
   delay += 300;
+  timers.push(timer);
 };
 
 //Event Listeners - Grandparent <--> parent <--> child
 grandparent.addEventListener("click", () => {
-  if (btn === "bubbling") {
-    showOutputOnConsole("Grandparent", "Bubbling");
-  }
+  if (btn === "bubbling") showOutputOnConsole("Grandparent", "Bubbling");
 });
 grandparent.addEventListener(
   "click",
   () => {
-    if (btn === "capturing") {
-      showOutputOnConsole("Grandparent", "Capturing");
-    }
+    delay = 0;
+    if (btn === "capturing") showOutputOnConsole("Grandparent", "Capturing");
   },
   true,
 );
 
 parent.addEventListener("click", () => {
-  if (btn === "bubbling") {
-    showOutputOnConsole("Parent", "Bubbling");
-  }
+  if (btn === "bubbling") showOutputOnConsole("Parent", "Bubbling");
 });
 parent.addEventListener(
   "click",
   () => {
-    if (btn === "capturing") {
-      showOutputOnConsole("Parent", "Capturing");
-    }
+    if (btn === "capturing") showOutputOnConsole("Parent", "Capturing");
   },
   true,
 );
 
 child.addEventListener("click", () => {
-  if (btn === "bubbling") {
-    delay = 0;
-    consoleBox.innerHTML = `
-        <div class="output">Output</div>
-              <div class="input-line">
-                <span class="prompt">&gt</span>
-                <span class="cursor"></span>
-              </div>
-  `;
-    showOutputOnConsole("Child", "Bubbling");
-  }
+  if (isRunning) return;
+
+  isRunning = true;
+  delay = 0;
+  setTimeout(() => {
+    isRunning = false;
+  }, 1000);
+
+  if (btn === "bubbling") showOutputOnConsole("Child", "Bubbling");
 });
+
 child.addEventListener(
   "click",
   () => {
-    delay = 0;
-
-    consoleBox.innerHTML = `
-        <div class="output">Output</div>
-              <div class="input-line">
-                <span class="prompt">&gt</span>
-                <span class="cursor"></span>
-              </div>
-  `;
-    if (btn === "capturing") {
-      showOutputOnConsole("Child", "Capturing");
-    }
+    if (btn === "capturing") showOutputOnConsole("Child", "Capturing");
   },
   true,
 );
