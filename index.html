@@ -72,7 +72,7 @@
 
                 <button class="delete-btn">Delete</button>
               </div>
-            </div> 
+            </div>
           </div>
           <h3 class="status-heading">Completed</h3>
 
@@ -95,10 +95,15 @@
         <div class="event-delegation">
           <div class="ed-header">
             <h2>Event Delegation Demonstration</h2>
-            <p>(Please select the event mode first, then click the button to see how the event propogates)</p>
+            <p>
+              (Please select the event mode first, then click the button to see
+              how the event propogates)
+            </p>
             <div class="modes">
               <button data-mode="bubbling" class="mode">Enable Bubbling</button>
-              <button data-mode="capturing" class="mode">Enable Capturing</button>
+              <button data-mode="capturing" class="mode">
+                Enable Capturing
+              </button>
             </div>
           </div>
           <div class="ed-main">
@@ -110,7 +115,9 @@
               </div>
             </div>
             <div class="console">
-              <div class="output">Output <button id="clear-console">Clear console</button></div>
+              <div class="output">
+                Output <button id="clear-console">Clear console</button>
+              </div>
 
               <div class="input-line">
                 <span class="prompt">&gt;</span>
@@ -122,11 +129,41 @@
         </div>
 
         <div class="difference">
-          <h1>input.value VS input.getAttribute("value")</h1>
-          <input type="text" id="diff-input" value="Rishabh Tripathi">
+          <h2>input.value VS input.getAttribute("value")</h2>
+          <input type="text" id="diff-input" value="Rishabh Tripathi" />
           <div class="diff-output">
-            <p>input.value - <span id="diff-out-value">Rishabh Tripathi</span></p>
-            <p>input.getAttribute("value") - <span id="diff-out-attri">Rishabh Tripathi</span></p>
+            <p>
+              input.value - <span id="diff-out-value">Rishabh Tripathi</span>
+            </p>
+            <p>
+              input.getAttribute("value") -
+              <span id="diff-out-attri">Rishabh Tripathi</span>
+            </p>
+          </div>
+        </div>
+
+        <div class="pipeline">
+          <h2>Browser Rendering Pipeline Visualization</h2>
+          <div class="pipeline-container">
+            <div class="process">
+              <h3>HTML</h3>
+              <i class="ri-arrow-down-long-line arrow" ></i>
+              <h3>Parsing</h3>
+              <i class="ri-arrow-down-long-line arrow" ></i>
+              <h3>Tokenization</h3>
+              <i class="ri-arrow-down-long-line arrow" ></i>
+              <h3>DOM Tree</h3>
+            </div>
+            <div class="process">
+              <h3>CSS</h3>
+              <i class="ri-arrow-down-long-line arrow" ></i>
+              <h3>CSSOM Tree</h3>
+            </div>
+            <div class="process">
+              <h3>DOM Tree + CSSOM Tree</h3>
+              <i class="ri-arrow-down-long-line arrow" ></i>
+              <h3>Render Tree</h3>
+            </div>
           </div>
         </div>
       </section>

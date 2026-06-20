@@ -1,5 +1,6 @@
 //Selectors
 const body = document.body;
+//Task Manager
 const addTaskBtn = document.querySelector("#add-task");
 const formOverlay = document.querySelector(".form-overlay");
 const closeForm = document.querySelector("#close-form");
@@ -7,17 +8,24 @@ const form = document.querySelector("form");
 const taskContainer = document.querySelector(".task-container");
 const pendingTasks = document.querySelector(".pending-tasks");
 const completedTasks = document.querySelector(".completed-task");
+//Theme
 const themeBtn = document.querySelector(".theme-btn");
 const themeIcon = document.querySelector("#theme-icon");
+//Event Delegation
 const grandparent = document.querySelector(".grandparent");
 const parent = document.querySelector(".parent");
 const child = document.querySelector(".child");
 const modeSelection = document.querySelector(".modes");
 const modeBtns = document.querySelectorAll(".mode");
 const consoleBox = document.querySelector(".console");
+//input.value VS .getAttribute("value")
 const diffInput = document.querySelector("#diff-input");
-const diffVal = document.querySelector("#diff-out-value")
-const diffAtr = document.querySelector("#diff-out-attri")
+const diffVal = document.querySelector("#diff-out-value");
+const diffAtr = document.querySelector("#diff-out-attri");
+//Browser Render Pipeline
+const arrows = document.querySelectorAll(".arrow");
+const mediaQuery = window.matchMedia("(min-width: 1024px)");
+
 
 //Variables
 let btn;
@@ -156,7 +164,6 @@ let undoClicked = (index) => {
   ui();
 };
 
-
 /*
 DEFINATION:
 Event Propogation is the phenomenon of the direction in which the event travells across the webpage. Event Bubbling moves from bottom up that means from target element up to the root, whereas in Event Capturing the event moves from the root to the bottom target element.
@@ -260,8 +267,33 @@ child.addEventListener(
   DIFFERENCE BETWEEN input.value and input.getAttribute("value")
   They both are used to fetch the value of input element, but the key difference between them is that input.value works dynamically means it changes its results according to the live changes happening in the input values, wherease the input.getAttribute("value") method only gives the static default text written in the input value, doesn't change with respect to live changes.
 */
-diffInput.addEventListener("input",(e)=>{
+diffInput.addEventListener("input", (e) => {
   // console.log(diffInput.getAttribute("value"))
   diffVal.textContent = `${e.target.value}`;
-  diffAtr.textContent = `${diffInput.getAttribute("value")}`
-})
+  diffAtr.textContent = `${diffInput.getAttribute("value")}`;
+});
+
+
+//Changing arrow alignment resposively
+function handleResoponsiveArrow(e) {
+  if (e.matches) {
+    arrows.forEach((arrow) =>
+      arrow.classList.replace(
+        "ri-arrow-down-long-line",
+        "ri-arrow-right-long-line",
+      ),
+    );
+
+    console.log("welcome desktop user!");
+  } else {
+    arrows.forEach((arrow) =>
+      arrow.classList.replace(
+        "ri-arrow-right-long-line",
+        "ri-arrow-down-long-line",
+      ),
+    );
+    console.log("welcome mobile user!");
+  }
+}
+mediaQuery.addEventListener("change", handleResoponsiveArrow);
+handleResoponsiveArrow(mediaQuery);
