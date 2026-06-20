@@ -374,11 +374,12 @@ main .task-manager .task-container .completed-task .task-card .actions button:ho
   transform: translateY(-2px);
 }
 main .dom-demo {
+  margin-top: 3rem;
   width: 100%;
-  padding: 1rem;
+  padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 4rem;
 }
 main .dom-demo .event-delegation {
   display: flex;
@@ -548,6 +549,9 @@ main .dom-demo .difference {
 }
 main .dom-demo .difference h2 {
   font-weight: 500;
+}
+main .dom-demo .difference #diff-sub-heading {
+  font-size: 0.7rem;
 }
 main .dom-demo .difference input {
   width: 30vmax;

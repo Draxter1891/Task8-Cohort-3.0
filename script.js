@@ -153,7 +153,7 @@ form.addEventListener("submit", (event) => {
     editIndex = null;
     formOverlay.style.display = "none";
   } else {
-    TASKS.push(obj);
+    TASKS.unshift(obj);
     formOverlay.style.display = "none";
   }
   // console.log(TASKS);

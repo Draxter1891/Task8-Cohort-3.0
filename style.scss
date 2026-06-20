@@ -420,11 +420,12 @@ main {
   }
 
   .dom-demo {
+    margin-top: 3rem;
     width: 100%;
-    padding: 1rem;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
-    gap: 2rem;
+    gap: 4rem;
 
     .event-delegation {
       display: flex;
@@ -597,6 +598,9 @@ main {
       gap: 1rem;
       h2 {
         font-weight: 500;
+      }
+      #diff-sub-heading{
+        font-size: .7rem;
       }
       input {
         width: 30vmax;
