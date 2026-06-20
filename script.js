@@ -1,5 +1,6 @@
 //Selectors
 const body = document.body;
+
 //Task Manager
 const addTaskBtn = document.querySelector("#add-task");
 const formOverlay = document.querySelector(".form-overlay");
@@ -8,9 +9,13 @@ const form = document.querySelector("form");
 const taskContainer = document.querySelector(".task-container");
 const pendingTasks = document.querySelector(".pending-tasks");
 const completedTasks = document.querySelector(".completed-task");
+const countPending = document.querySelector("#stats-pending");
+const countCompleted = document.querySelector("#stats-completed");
+
 //Theme
 const themeBtn = document.querySelector(".theme-btn");
 const themeIcon = document.querySelector("#theme-icon");
+
 //Event Delegation
 const grandparent = document.querySelector(".grandparent");
 const parent = document.querySelector(".parent");
@@ -18,10 +23,12 @@ const child = document.querySelector(".child");
 const modeSelection = document.querySelector(".modes");
 const modeBtns = document.querySelectorAll(".mode");
 const consoleBox = document.querySelector(".console");
+
 //input.value VS .getAttribute("value")
 const diffInput = document.querySelector("#diff-input");
 const diffVal = document.querySelector("#diff-out-value");
 const diffAtr = document.querySelector("#diff-out-attri");
+
 //Browser Render Pipeline
 const arrows = document.querySelectorAll(".arrow");
 const mediaQuery = window.matchMedia("(min-width: 1024px)");
@@ -62,6 +69,21 @@ let ui = () => {
   pendingTasks.innerHTML = "";
   completedTasks.innerHTML = "";
 
+//Task stats
+  let totalPending=0;
+  let totalCompleted=0;
+  TASKS.forEach(elem=>{
+    if(elem.status==="pending"){
+        totalPending++
+    }else if(elem.status==="completed"){
+      totalCompleted++
+    }
+  })
+  countPending.textContent = totalPending
+  countCompleted.textContent = totalCompleted
+
+
+//Task rendering
   TASKS.forEach((elem, index) => {
     if (elem.status === "pending") {
       pendingTasks.innerHTML += `
@@ -134,7 +156,7 @@ form.addEventListener("submit", (event) => {
     TASKS.push(obj);
     formOverlay.style.display = "none";
   }
-  console.log(TASKS);
+  // console.log(TASKS);
   ui();
   form.reset();
 });

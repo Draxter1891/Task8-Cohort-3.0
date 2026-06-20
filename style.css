@@ -80,6 +80,7 @@ main nav {
   justify-content: space-between;
   margin-bottom: 1rem;
   transition: background-color 0.3s ease;
+  z-index: 99;
 }
 main nav .theme-btn {
   width: 2rem;
@@ -190,33 +191,60 @@ main .form-overlay .task-form .add-task-btn:hover {
 }
 main .task-manager {
   width: 100%;
-  height: 100vh;
+  padding: 1rem;
 }
 main .task-manager .task-manager-header {
-  text-align: center;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
   margin-bottom: 2rem;
 }
-main .task-manager .task-manager-header h1 {
+main .task-manager .task-manager-header .task-heading h1 {
   font-size: clamp(2rem, 3vw, 3rem);
   font-weight: 600;
   color: var(--text-color);
   margin-bottom: 0.5rem;
 }
-main .task-manager .task-manager-header p {
+main .task-manager .task-manager-header .task-heading p {
   color: var(--text-muted);
   font-size: 1rem;
 }
+main .task-manager .task-manager-header .task-counter {
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  background-color: var(--cursor-color);
+  border-radius: 0.5rem;
+  padding: 0.8rem 1rem;
+  display: flex;
+  gap: 0.5rem;
+}
+main .task-manager .task-manager-header .task-counter p {
+  font-weight: 600;
+}
+main .task-manager .task-manager-header .task-counter span {
+  border-radius: 0.5rem;
+  background-color: var(--input-bg);
+  color: var(--text-color);
+  padding: 0.2rem 1rem;
+}
 main .task-manager .task-container {
+  width: 98%;
+  justify-self: center;
   margin-top: 2rem;
   display: flex;
   flex-direction: column;
   gap: 1rem;
   padding: 2rem;
   position: relative;
+  border: 1px solid var(--text-dim);
+  border-radius: 1rem;
 }
 main .task-manager .task-container .status-heading {
   color: var(--status-text);
-  font-size: 1.4rem;
+  font-size: 1rem;
   font-weight: 500;
 }
 main .task-manager .task-container .pending-tasks {
@@ -585,6 +613,11 @@ main .dom-demo .pipeline .pipeline-container i {
   body main .task-manager .task-container .pending-tasks .task-card {
     width: -moz-fit-content;
     width: fit-content;
+  }
+  body main .task-manager .task-manager-header {
+    padding: 1rem;
+    flex-direction: row;
+    justify-content: space-between;
   }
   body main .dom-demo .event-delegation {
     height: 40vmax;

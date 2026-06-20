@@ -53,12 +53,18 @@
       </div>
       <section class="task-manager">
         <div class="task-manager-header">
-          <h1>Task Manager</h1>
+          <div class="task-heading">
+            <h1>Task Manager</h1>
           <p>Organize, track and manage your tasks efficiently.</p>
+          </div>
+          <div class="task-counter">
+            <p>Pending <span id="stats-pending">1</span></p>
+            <p>Completed <span id="stats-completed">1</span></p>
+          </div>
         </div>
 
         <div class="task-container">
-          <h3 class="status-heading">Pending</h3>
+          <h3 class="status-heading">Pending Tasks ──</h3>
           <div class="pending-tasks">
             <div class="task-card">
               <h3>Learn Event Delegation</h3>
@@ -74,7 +80,7 @@
               </div>
             </div>
           </div>
-          <h3 class="status-heading">Completed</h3>
+          <h3 class="status-heading">Completed Tasks ──</h3>
 
           <div class="completed-task">
             <div class="task-card">
