@@ -6,7 +6,7 @@
   --text-muted: #71717a;
   --status-text: rgb(97, 97, 97);
   --input-bg: #e4e4e7;
-  --card-pending-bg: rgb(148, 210, 229);
+  --card-pending-bg: rgb(66, 125, 141);
   --card-complete-bg: rgb(221, 221, 221);
   --card-border: #e4e4e7;
   --category-bg: #f4f4f5;
@@ -33,7 +33,7 @@
   --text-muted: #a1a1aa;
   --status-text: rgb(180, 180, 180);
   --input-bg: #2a2a3d;
-  --card-pending-bg: rgb(50, 100, 120);
+  --card-pending-bg: rgb(230, 244, 250);
   --card-complete-bg: rgb(50, 50, 60);
   --card-border: #3f3f52;
   --category-bg: #2a2a3d;
@@ -122,6 +122,13 @@ main {
       padding: 0.8rem 1rem;
       cursor: pointer;
       border-radius: 2rem;
+      transition: all ease 0.3s;
+      &:hover{
+              background-color: var(--cursor-color);
+            }
+            &:active{
+              transform: scale(1.1);
+            }
     }
   }
 
@@ -243,20 +250,20 @@ main {
           font-size: 1rem;
         }
       }
-      .task-counter{
+      .task-counter {
         width: fit-content;
         height: fit-content;
         background-color: var(--cursor-color);
-        border-radius: .5rem;
+        border-radius: 0.5rem;
         padding: 0.8rem 1rem;
         display: flex;
         gap: 0.5rem;
-        
-        p{
+
+        p {
           font-weight: 600;
         }
 
-        span{
+        span {
           border-radius: 0.5rem;
           background-color: var(--input-bg);
           color: var(--text-color);
@@ -278,14 +285,37 @@ main {
       border-radius: 1rem;
 
       .status-heading {
-        color: var(--status-text);
-        font-size: 1rem;
+        color: var(--text-main);
+        font-size: 1.4rem;
         font-weight: 500;
       }
       .pending-tasks {
         display: flex;
         flex-wrap: wrap;
         gap: 0.4rem;
+
+        .empty-state {
+          color: var(--text-dim);
+          button {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            background-color: var(--card-pending-bg);
+            padding: 0.4rem .5rem;
+            cursor: pointer;
+            border-radius: 2rem;
+            border: none;
+            outline: none;
+            transition: all ease 0.3s;
+            color: var(--primary-bg);
+            &:hover{
+              background-color: var(--cursor-color);
+            }
+            &:active{
+              transform: scale(1.1);
+            }
+          }
+        }
 
         .task-card {
           width: 100%;
@@ -358,6 +388,30 @@ main {
         display: flex;
         flex-wrap: wrap;
         gap: 0.4rem;
+
+        .empty-state {
+          color: var(--text-dim);
+          button {
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-top: 1rem;
+            background-color: var(--card-pending-bg);
+            padding: 0.4rem .5rem;
+            cursor: pointer;
+            border-radius: 2rem;
+            border: none;
+            outline: none;
+            transition: all ease 0.3s;
+            color: var(--primary-bg);
+            &:hover{
+              background-color: var(--cursor-color);
+            }
+            &:active{
+              transform: scale(1.1);
+            }
+          }
+        }
+
         .task-card {
           width: fit-content;
           background: var(--card-complete-bg);
@@ -599,8 +653,8 @@ main {
       h2 {
         font-weight: 500;
       }
-      #diff-sub-heading{
-        font-size: .7rem;
+      #diff-sub-heading {
+        font-size: 0.7rem;
       }
       input {
         width: 30vmax;
@@ -673,7 +727,7 @@ main {
     .task-manager .task-container .pending-tasks .task-card {
       width: fit-content;
     }
-    .task-manager .task-manager-header{
+    .task-manager .task-manager-header {
       padding: 1rem;
       flex-direction: row;
       justify-content: space-between;

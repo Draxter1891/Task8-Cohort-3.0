@@ -33,7 +33,6 @@ const diffAtr = document.querySelector("#diff-out-attri");
 const arrows = document.querySelectorAll(".arrow");
 const mediaQuery = window.matchMedia("(min-width: 1024px)");
 
-
 //Variables
 let btn;
 let editIndex = null;
@@ -65,25 +64,65 @@ let randomColor = () => {
   return `hsl(${hue}, 70%, 85%)`;
 };
 
+taskContainer.addEventListener("click", (e) => {
+  if (e.target.classList.contains("empty-add-btn")) {
+    formOverlay.style.display = "flex";
+  }
+});
+
 let ui = () => {
   pendingTasks.innerHTML = "";
   completedTasks.innerHTML = "";
 
-//Task stats
-  let totalPending=0;
-  let totalCompleted=0;
-  TASKS.forEach(elem=>{
-    if(elem.status==="pending"){
-        totalPending++
-    }else if(elem.status==="completed"){
-      totalCompleted++
+  //Task stats
+  let totalPending = 0;
+  let totalCompleted = 0;
+  TASKS.forEach((elem) => {
+    if (elem.status === "pending") {
+      totalPending++;
+    } else if (elem.status === "completed") {
+      totalCompleted++;
     }
-  })
-  countPending.textContent = totalPending
-  countCompleted.textContent = totalCompleted
+  });
+  countPending.textContent = totalPending;
+  countCompleted.textContent = totalCompleted;
 
+  //Task rendering
+  // if (totalPending === 0 && totalCompleted === 0) {
+  //   pendingTasks.innerHTML = `
+  //   <div class="empty-state">
+  //     <i class="ri-file-list-3-line"></i>
+  //     <h3>No tasks yet</h3>
+  //     <p>Click "Add Task" to create your first task.</p>
+  //     <button class="empty-add-btn">+ Add Task</button>
+  //   </div>
+  // `;
+  //   completedTasks.innerHTML = "";
+  //   return;
+  // }
 
-//Task rendering
+    // Empty state - Pending
+  if (totalPending === 0) {
+    pendingTasks.innerHTML = `
+      <div class="empty-state">
+        <i class="ri-file-list-3-line"></i>
+        <h3>No Pending Tasks</h3>
+        <p>Create a new task to get started.</p>
+        <button class="empty-add-btn">+ Add Task</button>
+      </div>
+    `;
+  }
+
+    // Empty state - Completed
+  if (totalCompleted === 0) {
+    completedTasks.innerHTML = `
+      <div class="empty-state">
+        <i class="ri-checkbox-circle-line"></i>
+        <h3>No Completed Tasks</h3>
+        <p>Complete a task to see it here.</p>
+      </div>
+    `;
+  }
   TASKS.forEach((elem, index) => {
     if (elem.status === "pending") {
       pendingTasks.innerHTML += `
@@ -126,6 +165,7 @@ addTaskBtn.addEventListener("click", () => {
 
 closeForm.addEventListener("click", () => {
   formOverlay.style.display = "none";
+  form.reset();
 });
 
 form.addEventListener("submit", (event) => {
@@ -294,7 +334,6 @@ diffInput.addEventListener("input", (e) => {
   diffVal.textContent = `${e.target.value}`;
   diffAtr.textContent = `${diffInput.getAttribute("value")}`;
 });
-
 
 //Changing arrow alignment resposively
 function handleResoponsiveArrow(e) {
